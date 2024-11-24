@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
+
+  build:
+    commands:
+      - echo Running tests...
+      - pytest --maxfail=1 --disable-warnings -q  # Stop after one failure, suppress warnings, and use quiet output
+
+  post_build:
+    commands:
+      - echo Build complete.
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+  base-directory: .
+
+cache:
+  paths:
+    - 'requirements.txt'
+    - '/root/.cache/pip/**/*'
